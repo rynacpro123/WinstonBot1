@@ -47,10 +47,10 @@ import openai
 load_dotenv()
 
 app=Flask(__name__)
-slack_event_adapter = SlackEventAdapter(os.environ['SLACK_SIGNING_SECRET'],'/slack/events',app) #set from ".env" file through load_dotenv() function
+slack_event_adapter = SlackEventAdapter(os.environ['MBA_SLACK_SIGNING_SECRET'],'/slack/events',app) #set from ".env" file through load_dotenv() function
 
 
-client = slack_sdk.WebClient(token=os.environ['SLACK_BOT_TOKEN'])  #load token from .env ile and pass to instatioiont of client object from slack.webclient class
+client = slack_sdk.WebClient(token=os.environ['MBA_SLACK_BOT_TOKEN'])  #load token from .env ile and pass to instatioiont of client object from slack.webclient class
 
 client.chat_postMessage(channel='#talk_to_winston', text="chatBot initialized")
 
