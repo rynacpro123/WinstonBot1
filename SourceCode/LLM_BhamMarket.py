@@ -9,6 +9,7 @@
 
 
 import os
+from os.path import join, dirname
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyMuPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -20,28 +21,32 @@ from langchain.chains import RetrievalQA
 import backoff
 import openai
 
-load_dotenv()
-
-#os.environ['OPENAI_API_KEY'] =  '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'
 
 
+load_dotenv(override=True)
 
-##---load the document(s). This can be commented out after storage is completed
-loader = DirectoryLoader("./venv/TrainingDocuments/BhamRealestateMarket", glob="./*.pdf", loader_cls=PyMuPDFLoader)
-documents = loader.load()
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
-texts = text_splitter.split_documents(documents)
+
+
+
+
+
+
+# ##---load the document(s). This can be commented out after storage is completed
+# loader = DirectoryLoader("./venv/TrainingDocuments/BhamRealestateMarket", glob="./*.pdf", loader_cls=PyMuPDFLoader)
+# documents = loader.load()
+# text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=10)
+# texts = text_splitter.split_documents(documents)
 
 #initialize the directory TrainingDocuments location and instanciate an embeddings object
 persist_directory = "./storage"
 embeddings = OpenAIEmbeddings()
 
 
-#Create and store the vector database This section can be commented out after storage is completed
-vectordb = Chroma.from_documents(documents=texts,
-                                 embedding=embeddings,
-                                 persist_directory=persist_directory)
-vectordb.persist()
+# #Create and store the vector database This section can be commented out after storage is completed
+# vectordb = Chroma.from_documents(documents=texts,
+#                                  embedding=embeddings,
+#                                  persist_directory=persist_directory)
+# vectordb.persist()
 
 #get from disk
 vectordb = None
